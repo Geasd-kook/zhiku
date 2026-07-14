@@ -75,6 +75,13 @@ class ImportConfig:
     )
     minio_secure: bool = False
 
+    # ==================== Mineru 配置 ====================
+    mineru_api_token: str = field(
+        default_factory=lambda: os.getenv("MINERU_API_TOKEN", "")
+    )
+    mineru_base_url: str = field(
+        default_factory=lambda: os.getenv("MINERU_BASE_URL", "")
+    )
     # ==================== 向量配置 ====================
     embedding_dim: int = field(
         default_factory=lambda: int(os.getenv("EMBEDDING_DIM", "1024"))
