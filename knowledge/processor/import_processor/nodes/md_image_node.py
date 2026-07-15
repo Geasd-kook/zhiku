@@ -302,7 +302,7 @@ class _VLMSummarizer:
             return "暂无摘要信息"
 
         # 3. 解析大模型的输出，拿到每张图片的描述信息
-        print(vlm_result.choices[0].message.content)
+        # print(vlm_result.choices[0].message.content)
         return vlm_result.choices[0].message.content
 
 class _ImageUploader:
@@ -312,7 +312,7 @@ class _ImageUploader:
     def upload_and_replace(self,md_lines,document_name:str,image_info_list:List[ImageInfo],image_summarizes:Dict[str,str]) -> str:
         #1. 上传图片
         remote_urls = self._upload_all(document_name,image_info_list)
-        print(remote_urls)
+        # print(remote_urls)
         #2. 替换md中的内容,返回替换之后的md的内容
         new_md_content = self._replace_md_content(md_lines,image_summarizes,remote_urls)
 
