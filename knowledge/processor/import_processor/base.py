@@ -3,13 +3,14 @@
 
 定义统一的节点接口规范，提供通用功能
 """
-
+import time
 from abc import ABC, abstractmethod
 from typing import TypeVar, Optional
 import logging
 
 from knowledge.processor.import_processor.config import ImportConfig, get_config
 from knowledge.processor.import_processor.exceptions import ImportProcessError
+from knowledge.utils.task_util import add_running_task, add_done_task, add_node_duration
 
 T = TypeVar("T")  # 泛型状态类型
 
@@ -65,13 +66,15 @@ class BaseNode(ABC):
         try:
             # 1. 开始准备执行节点
             self.logger.info(f"--- {self.name} 开始 ---")
-
+            add_running_task(task_id=state.get("task_id"), node_name=self.name)
             # 2. 执行节点
+            start_time = time.time()
             result = self.process(state)
 
             # 3. 执行节点成功
             self.logger.info(f"--- {self.name} 完成 ---")
-
+            add_done_task(task_id=state.get("task_id"), node_name=self.name)
+            add_node_duration(task_id=state.get("task_id"), node_name=self.name, duration=time.time() - start_time)
             return result
         except Exception as e:
             self.logger.error(f"{self.name} 执行失败: {e}")

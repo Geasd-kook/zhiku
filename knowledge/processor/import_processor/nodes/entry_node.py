@@ -6,7 +6,7 @@ from knowledge.processor.import_processor.state import ImportGraphState
 from pathlib import Path
 
 class EntryNode(BaseNode):
-    name = "EntryNode"
+    name = "entry_node"
     def process(self, state: ImportGraphState) -> ImportGraphState:
 
         #获取state中的文件路径，还有文件url
