@@ -58,7 +58,7 @@ class HydeSearchNode(BaseNode):
         )
         #9. 将hyde检索的结果存入state，并返回
         state["hyde_embedding_chunks"] = hyde_search_result[0]
-        return state
+        return {"hyde_embedding_chunks": hyde_search_result[0]}
 
     def _validate_state(self, state:QueryGraphState):
         # 1. 获取rewritten_query,item_names

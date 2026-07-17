@@ -49,6 +49,22 @@ class StorageClients(BaseClientManager):
             else:
                 logger.info(f"MinIO bucket '{bucket_name}' 已存在")
 
+            # 设置桶为公开读取，这样前端可以直接通过 URL 访问图片
+            from minio.commonconfig import SnowballObject
+            policy = {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {"AWS": "*"},
+                        "Action": ["s3:GetObject"],
+                        "Resource": [f"arn:aws:s3:::{bucket_name}/*"]
+                    }
+                ]
+            }
+            import json
+            client.set_bucket_policy(bucket_name, json.dumps(policy))
+
             logger.info(f"MinIO 客户端初始化成功 (endpoint={endpoint})")
             return client
 

@@ -39,7 +39,7 @@ class WebSearchNode(BaseNode):
         #4. 将web_search_docs存入state中
         state["web_search_docs"] = web_search_docs
 
-        return state
+        return {"web_search_docs": web_search_docs}
 
     async def mcp_web_search(self,rewritten_query:str):
         # 1. 创建MCP客户端

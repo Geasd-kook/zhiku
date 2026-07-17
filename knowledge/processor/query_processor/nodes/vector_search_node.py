@@ -55,8 +55,7 @@ class VectorSearchNode(BaseNode):
         )
         #7. 返回结果
         state["embedding_chunks"] = hybrid_search_results[0]
-        return state
-
+        return {"embedding_chunks": hybrid_search_results[0]}
     def _validate_state(self, state:QueryGraphState) -> Tuple[str, List[str]]:
         #1. 获取rewritten_query,item_names
         rewritten_query = state.get("rewritten_query")
